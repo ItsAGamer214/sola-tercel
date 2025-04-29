@@ -13,15 +13,16 @@ export default function Home() {
   const [thankYouVisible, setThankYouVisible] = useState(false);
   const [followUpVisible, setFollowUpVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  let fakePageCount = 182;
+  const fakePageCount = 182;
 
   useEffect(() => {
     // Set time-based tagline
     setTimeBasedTagline();
     
     // Initialize join count from localStorage
-    const savedCount = localStorage.getItem('joinCount');
-    setJoinCount(savedCount ? parseInt(savedCount) + fakePageCount : fakePageCount);
+    const savedRealJoins = parseInt(localStorage.getItem('realJoins')) || 0;
+    setJoinCount(fakeBaseCount + savedRealJoins);
+
   }, []);
 
   const setTimeBasedTagline = () => {
@@ -90,9 +91,12 @@ export default function Home() {
     if (isSubmitting) return;
     
     // Update join count
-    const newJoinCount = joinCount + 1;
-    setJoinCount(newJoinCount);
-    localStorage.setItem('joinCount', newJoinCount - 32);
+    const currentRealJoins = parseInt(localStorage.getItem('realJoins')) || 0;
+    const updatedRealJoins = currentRealJoins + 1;
+    localStorage.setItem('realJoins', updatedRealJoins);
+
+    setJoinCount(fakeBaseCount + updatedRealJoins);
+
     
     const firstName = e.target.firstName.value.trim();
     const email = e.target.email.value.trim();
