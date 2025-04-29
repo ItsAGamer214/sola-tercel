@@ -13,7 +13,7 @@ export default function Home() {
   const [thankYouVisible, setThankYouVisible] = useState(false);
   const [followUpVisible, setFollowUpVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const fakeBaseCount = 182;
+  const fakeBaseCount = 253;
 
   useEffect(() => {
     // Set time-based tagline
